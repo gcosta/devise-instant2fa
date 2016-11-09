@@ -1,0 +1,7 @@
+en:
+  devise:
+    instant2fa:
+      user:
+        signed_in: "Two factor authentication successful."
+        success: "Two factor authentication successful."
+        attempt_failed: "Two factor authentication failed."
