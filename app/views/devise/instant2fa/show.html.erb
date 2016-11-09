@@ -1,5 +1,2 @@
 <p><%= flash[:notice] %></p>
-
 <%= instant2fa_verification_form(resource_name, @hosted_page_url)%>
-
-<%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
