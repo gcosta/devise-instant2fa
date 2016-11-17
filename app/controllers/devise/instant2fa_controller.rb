@@ -4,9 +4,9 @@ class Devise::Instant2faController < DeviseController
       :show, :update
     ]
   else
-      prepend_before_filter :find_resource_and_require_password_checked, :only => [
-        :show, :update
-      ]
+    prepend_before_filter :find_resource_and_require_password_checked, :only => [
+      :show, :update
+    ]
   end
 
   def show
