@@ -1,7 +1,13 @@
 class Devise::Instant2faController < DeviseController
-  prepend_before_action :find_resource_and_require_password_checked, :only => [
-    :show, :update
-  ]
+  if self.respond_to?(:prepend_before_action)
+    prepend_before_action :find_resource_and_require_password_checked, :only => [
+      :show, :update
+    ]
+  else
+    prepend_before_filter :find_resource_and_require_password_checked, :only => [
+      :show, :update
+    ]
+  end
 
   def show
     @hosted_page_url = session["#{resource_name}_hosted_page_url"]
@@ -26,7 +32,7 @@ class Devise::Instant2faController < DeviseController
     @resource = send("current_#{resource_name}")
 
     if @resource.nil?
-      @resource = resource_class.find_by_id(session["#{resource_name}_id"])
+      @resource = resource_class.find(session["#{resource_name}_id"])
     end
   end
 
