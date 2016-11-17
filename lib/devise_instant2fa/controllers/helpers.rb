@@ -3,8 +3,12 @@ module DeviseInstant2fa
     module Helpers
       extend ActiveSupport::Concern
 
-      included do
-        before_action :handle_two_factor_authentication, :if => :is_signing_in?
+      def self.included(source)
+          if source.respond_to?(:before_action) # Rails 4+
+            source.send(:before_action, :handle_two_factor_authentication, :if => :is_signing_in?)
+          elsif source.respond_to?(:before_filter) # Rails 3
+            source.send(:before_filter, :handle_two_factor_authentication, :if => :is_signing_in?)
+          end
       end
 
       def is_devise_sessions_controller?
