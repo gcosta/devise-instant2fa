@@ -35,7 +35,10 @@ module DeviseInstant2fa
   NEED_AUTHENTICATION = 'need_two_factor_authentication'
   HOSTED_PAGE_URL = 'hosted_page_url'
 
+  autoload :Mapping, 'devise_instant2fa/mapping'
+
   module Controllers
+    autoload :Passwords, 'devise_instant2fa/controllers/passwords'
     autoload :Helpers, 'devise_instant2fa/controllers/helpers'
   end
 
@@ -44,18 +47,9 @@ module DeviseInstant2fa
   end
 end
 
-module Devise
-  module Models
-    module Instant2faAuthenticatable
-      def instant2fa_settings_url
-        Instant2fa.create_settings(self.id)
-      end
-    end
-  end
-end
+require 'devise_instant2fa/routes'
+require 'devise_instant2fa/rails'
+require 'devise_instant2fa/models/instant2fa_authenticatable'
 
 Devise.add_module :instant2fa_authenticatable, :controller => :instant2fa, :route => :instant2fa
 
-require 'devise_instant2fa/hooks/instant2fa_authenticatable'
-require 'devise_instant2fa/routes'
-require 'devise_instant2fa/rails'
