@@ -51,8 +51,8 @@ class Devise::Instant2faController < DeviseController
     end
     sign_in(resource_name, resource)
 
-    set_flash_message(:notice, :signed_in) if is_navigational_format?
-    respond_with resource, :location => after_sign_in_path_for(resource)
+    flash[:error] = "WARNING: insert two factor update warning here"
+    redirect_to "/users/enable_authy"
   end
 
   def after_two_factor_fail_for(resource)
