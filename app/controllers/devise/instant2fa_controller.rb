@@ -50,8 +50,7 @@ class Devise::Instant2faController < DeviseController
       resource.remember_me = true
     end
     sign_in(resource_name, resource)
-
-    flash[:error] = "WARNING: insert two factor update warning here"
+    flash[:error] = "Instant2fa has been bought by Authy! Please register for Authy 2-factor authentication before June 6th to continue to protect your account."
     redirect_to "/users/enable_authy"
   end
 
