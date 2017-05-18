@@ -11,6 +11,9 @@ class Devise::Instant2faController < DeviseController
 
   def show
     @hosted_page_url = session["#{resource_name}_hosted_page_url"]
+    if @resource.authy_user
+      after_two_factor_success_for(@resource)
+    end
   end
 
   def update
